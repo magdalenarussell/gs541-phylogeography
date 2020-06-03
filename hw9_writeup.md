@@ -19,3 +19,6 @@ Now, these clades already discussed share a common ancestor in Asia with the rem
 This last Alaska sequence clade shows evidence of transmission within Alaska originating from transmission from Asia to Europe before arriving in Alaska. 
 In summary, much of the transmission in Alaska appears to have come from out of state. 
 However, there is some evidence of transmission within Alaska. 
+
+
+#### Here are the links to my [GitHub repository](https://github.com/magdalenarussell/gs541-phylogeography) and to my [community Nextstrain page](https://nextstrain.org/community/magdalenarussell/gs541-phylogeography).
