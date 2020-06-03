@@ -1,0 +1,836 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	aggregate_alignments
+	1	all
+	1	ancestral
+	1	clades
+	1	colors
+	1	combine_samples
+	1	diagnostic
+	1	export
+	1	filter
+	1	finalize
+	1	incorporate_travel_history
+	1	legacy_clades
+	1	mask
+	1	pangolin
+	1	partition_sequences
+	1	recency
+	1	refilter
+	1	refine
+	1	rename_legacy_clades
+	1	subsample
+	1	tip_frequencies
+	1	traits
+	1	translate
+	1	tree
+	24
+
+[Tue Jun  2 16:44:45 2020]
+Job 5: Constructing colors file
+
+
+        /usr/bin/python3.6 scripts/assign-colors.py             --ordering config/ordering.tsv             --color-schemes config/color_schemes.tsv             --output results/global/colors.tsv             --metadata data/metadata.tsv 2>&1 | tee logs/colors_global.txt
+        
+
+[Tue Jun  2 16:44:45 2020]
+Job 24: 
+        Filtering to
+          - excluding strains in config/exclude.txt
+        
+
+
+        augur filter             --sequences data/sequences.fasta             --metadata data/metadata.tsv             --include config/include.txt             --exclude config/exclude.txt             --exclude-where division='USA' date='2020' date='2020-01-XX' date='2020-02-XX' date='2020-03-XX' date='2020-04-XX' date='2020-05-XX' date='2020-06-XX' date='2020-01' date='2020-02' date='2020-03' date='2020-04' date='2020-05' date='2020-06'            --min-length 27000             --output results/filtered.fasta 2>&1 | tee logs/filtered.txt
+        
+[Tue Jun  2 16:44:48 2020]
+Finished job 5.
+1 of 24 steps (4%) done
+
+[Tue Jun  2 16:44:48 2020]
+Job 13: Use metadata on submission date to construct submission recency field
+
+
+        /usr/bin/python3.6 scripts/construct-recency-from-submission-date.py             --metadata data/metadata.tsv             --output results/global/recency.json 2>&1 | tee logs/recency_global.txt
+        
+[Tue Jun  2 16:44:51 2020]
+Finished job 24.
+2 of 24 steps (8%) done
+
+[Tue Jun  2 16:44:51 2020]
+checkpoint partition_sequences:
+    input: results/filtered.fasta
+    output: results/split_sequences/
+    log: logs/partition_sequences.txt
+    jobid: 23
+Downstream jobs will be updated after completion.
+
+
+        /usr/bin/python3.6 scripts/partition-sequences.py             --sequences results/filtered.fasta             --sequences-per-group 10             --output-dir results/split_sequences/ 2>&1 | tee logs/partition_sequences.txt
+        
+[Tue Jun  2 16:44:52 2020]
+Finished job 13.
+3 of 24 steps (12%) done
+Updating job 21 (aggregate_alignments).
+[Tue Jun  2 16:44:57 2020]
+Finished job 23.
+4 of 62 steps (6%) done
+
+[Tue Jun  2 16:44:58 2020]
+Job 26: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  10
+        
+
+
+        augur align             --sequences results/split_sequences/10.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/10.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_10.txt
+        
+[Tue Jun  2 16:45:05 2020]
+Finished job 26.
+5 of 62 steps (8%) done
+
+[Tue Jun  2 16:45:05 2020]
+Job 43: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  17
+        
+
+
+        augur align             --sequences results/split_sequences/17.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/17.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_17.txt
+        
+[Tue Jun  2 16:45:11 2020]
+Finished job 43.
+6 of 62 steps (10%) done
+
+[Tue Jun  2 16:45:11 2020]
+Job 45: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  33
+        
+
+
+        augur align             --sequences results/split_sequences/33.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/33.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_33.txt
+        
+[Tue Jun  2 16:45:18 2020]
+Finished job 45.
+7 of 62 steps (11%) done
+
+[Tue Jun  2 16:45:18 2020]
+Job 42: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  28
+        
+
+
+        augur align             --sequences results/split_sequences/28.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/28.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_28.txt
+        
+[Tue Jun  2 16:45:23 2020]
+Finished job 42.
+8 of 62 steps (13%) done
+
+[Tue Jun  2 16:45:23 2020]
+Job 58: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  27
+        
+
+
+        augur align             --sequences results/split_sequences/27.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/27.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_27.txt
+        
+[Tue Jun  2 16:45:28 2020]
+Finished job 58.
+9 of 62 steps (15%) done
+
+[Tue Jun  2 16:45:28 2020]
+Job 34: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  29
+        
+
+
+        augur align             --sequences results/split_sequences/29.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/29.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_29.txt
+        
+[Tue Jun  2 16:45:33 2020]
+Finished job 34.
+10 of 62 steps (16%) done
+
+[Tue Jun  2 16:45:33 2020]
+Job 56: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  18
+        
+
+
+        augur align             --sequences results/split_sequences/18.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/18.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_18.txt
+        
+[Tue Jun  2 16:45:41 2020]
+Finished job 56.
+11 of 62 steps (18%) done
+
+[Tue Jun  2 16:45:41 2020]
+Job 39: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  35
+        
+
+
+        augur align             --sequences results/split_sequences/35.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/35.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_35.txt
+        
+[Tue Jun  2 16:45:49 2020]
+Finished job 39.
+12 of 62 steps (19%) done
+
+[Tue Jun  2 16:45:49 2020]
+Job 31: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  16
+        
+
+
+        augur align             --sequences results/split_sequences/16.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/16.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_16.txt
+        
+[Tue Jun  2 16:45:55 2020]
+Finished job 31.
+13 of 62 steps (21%) done
+
+[Tue Jun  2 16:45:55 2020]
+Job 51: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  20
+        
+
+
+        augur align             --sequences results/split_sequences/20.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/20.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_20.txt
+        
+[Tue Jun  2 16:46:00 2020]
+Finished job 51.
+14 of 62 steps (23%) done
+
+[Tue Jun  2 16:46:00 2020]
+Job 44: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  9
+        
+
+
+        augur align             --sequences results/split_sequences/9.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/9.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_9.txt
+        
+[Tue Jun  2 16:46:06 2020]
+Finished job 44.
+15 of 62 steps (24%) done
+
+[Tue Jun  2 16:46:06 2020]
+Job 32: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  32
+        
+
+
+        augur align             --sequences results/split_sequences/32.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/32.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_32.txt
+        
+[Tue Jun  2 16:46:12 2020]
+Finished job 32.
+16 of 62 steps (26%) done
+
+[Tue Jun  2 16:46:12 2020]
+Job 40: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  31
+        
+
+
+        augur align             --sequences results/split_sequences/31.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/31.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_31.txt
+        
+[Tue Jun  2 16:46:16 2020]
+Finished job 40.
+17 of 62 steps (27%) done
+
+[Tue Jun  2 16:46:16 2020]
+Job 49: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  19
+        
+
+
+        augur align             --sequences results/split_sequences/19.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/19.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_19.txt
+        
+[Tue Jun  2 16:46:22 2020]
+Finished job 49.
+18 of 62 steps (29%) done
+
+[Tue Jun  2 16:46:22 2020]
+Job 37: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  13
+        
+
+
+        augur align             --sequences results/split_sequences/13.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/13.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_13.txt
+        
+[Tue Jun  2 16:46:27 2020]
+Finished job 37.
+19 of 62 steps (31%) done
+
+[Tue Jun  2 16:46:27 2020]
+Job 38: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  11
+        
+
+
+        augur align             --sequences results/split_sequences/11.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/11.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_11.txt
+        
+[Tue Jun  2 16:46:32 2020]
+Finished job 38.
+20 of 62 steps (32%) done
+
+[Tue Jun  2 16:46:32 2020]
+Job 61: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  0
+        
+
+
+        augur align             --sequences results/split_sequences/0.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/0.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_0.txt
+        
+[Tue Jun  2 16:46:37 2020]
+Finished job 61.
+21 of 62 steps (34%) done
+
+[Tue Jun  2 16:46:37 2020]
+Job 27: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  34
+        
+
+
+        augur align             --sequences results/split_sequences/34.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/34.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_34.txt
+        
+[Tue Jun  2 16:46:42 2020]
+Finished job 27.
+22 of 62 steps (35%) done
+
+[Tue Jun  2 16:46:42 2020]
+Job 28: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  36
+        
+
+
+        augur align             --sequences results/split_sequences/36.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/36.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_36.txt
+        
+[Tue Jun  2 16:46:46 2020]
+Finished job 28.
+23 of 62 steps (37%) done
+
+[Tue Jun  2 16:46:46 2020]
+Job 54: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  22
+        
+
+
+        augur align             --sequences results/split_sequences/22.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/22.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_22.txt
+        
+[Tue Jun  2 16:46:54 2020]
+Finished job 54.
+24 of 62 steps (39%) done
+
+[Tue Jun  2 16:46:54 2020]
+Job 50: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  7
+        
+
+
+        augur align             --sequences results/split_sequences/7.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/7.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_7.txt
+        
+[Tue Jun  2 16:47:01 2020]
+Finished job 50.
+25 of 62 steps (40%) done
+
+[Tue Jun  2 16:47:01 2020]
+Job 53: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  1
+        
+
+
+        augur align             --sequences results/split_sequences/1.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/1.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_1.txt
+        
+[Tue Jun  2 16:47:10 2020]
+Finished job 53.
+26 of 62 steps (42%) done
+
+[Tue Jun  2 16:47:11 2020]
+Job 52: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  3
+        
+
+
+        augur align             --sequences results/split_sequences/3.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/3.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_3.txt
+        
+[Tue Jun  2 16:47:18 2020]
+Finished job 52.
+27 of 62 steps (44%) done
+
+[Tue Jun  2 16:47:18 2020]
+Job 55: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  6
+        
+
+
+        augur align             --sequences results/split_sequences/6.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/6.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_6.txt
+        
+[Tue Jun  2 16:47:25 2020]
+Finished job 55.
+28 of 62 steps (45%) done
+
+[Tue Jun  2 16:47:25 2020]
+Job 35: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  14
+        
+
+
+        augur align             --sequences results/split_sequences/14.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/14.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_14.txt
+        
+[Tue Jun  2 16:47:31 2020]
+Finished job 35.
+29 of 62 steps (47%) done
+
+[Tue Jun  2 16:47:31 2020]
+Job 60: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  23
+        
+
+
+        augur align             --sequences results/split_sequences/23.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/23.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_23.txt
+        
+[Tue Jun  2 16:47:38 2020]
+Finished job 60.
+30 of 62 steps (48%) done
+
+[Tue Jun  2 16:47:38 2020]
+Job 63: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  21
+        
+
+
+        augur align             --sequences results/split_sequences/21.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/21.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_21.txt
+        
+[Tue Jun  2 16:47:44 2020]
+Finished job 63.
+31 of 62 steps (50%) done
+
+[Tue Jun  2 16:47:44 2020]
+Job 59: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  4
+        
+
+
+        augur align             --sequences results/split_sequences/4.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/4.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_4.txt
+        
+[Tue Jun  2 16:47:51 2020]
+Finished job 59.
+32 of 62 steps (52%) done
+
+[Tue Jun  2 16:47:51 2020]
+Job 46: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  5
+        
+
+
+        augur align             --sequences results/split_sequences/5.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/5.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_5.txt
+        
+[Tue Jun  2 16:47:57 2020]
+Finished job 46.
+33 of 62 steps (53%) done
+
+[Tue Jun  2 16:47:57 2020]
+Job 62: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  2
+        
+
+
+        augur align             --sequences results/split_sequences/2.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/2.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_2.txt
+        
+[Tue Jun  2 16:48:04 2020]
+Finished job 62.
+34 of 62 steps (55%) done
+
+[Tue Jun  2 16:48:04 2020]
+Job 41: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  15
+        
+
+
+        augur align             --sequences results/split_sequences/15.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/15.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_15.txt
+        
+[Tue Jun  2 16:48:10 2020]
+Finished job 41.
+35 of 62 steps (56%) done
+
+[Tue Jun  2 16:48:10 2020]
+Job 29: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  12
+        
+
+
+        augur align             --sequences results/split_sequences/12.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/12.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_12.txt
+        
+[Tue Jun  2 16:48:15 2020]
+Finished job 29.
+36 of 62 steps (58%) done
+
+[Tue Jun  2 16:48:15 2020]
+Job 30: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  8
+        
+
+
+        augur align             --sequences results/split_sequences/8.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/8.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_8.txt
+        
+[Tue Jun  2 16:48:21 2020]
+Finished job 30.
+37 of 62 steps (60%) done
+
+[Tue Jun  2 16:48:21 2020]
+Job 33: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  30
+        
+
+
+        augur align             --sequences results/split_sequences/30.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/30.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_30.txt
+        
+[Tue Jun  2 16:48:28 2020]
+Finished job 33.
+38 of 62 steps (61%) done
+
+[Tue Jun  2 16:48:28 2020]
+Job 48: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  24
+        
+
+
+        augur align             --sequences results/split_sequences/24.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/24.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_24.txt
+        
+[Tue Jun  2 16:48:33 2020]
+Finished job 48.
+39 of 62 steps (63%) done
+
+[Tue Jun  2 16:48:33 2020]
+Job 57: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  25
+        
+
+
+        augur align             --sequences results/split_sequences/25.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/25.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_25.txt
+        
+[Tue Jun  2 16:48:39 2020]
+Finished job 57.
+40 of 62 steps (65%) done
+
+[Tue Jun  2 16:48:39 2020]
+Job 47: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  26
+        
+
+
+        augur align             --sequences results/split_sequences/26.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/26.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_26.txt
+        
+[Tue Jun  2 16:48:47 2020]
+Finished job 47.
+41 of 62 steps (66%) done
+
+[Tue Jun  2 16:48:47 2020]
+Job 36: 
+        Aligning sequences to config/reference.gb
+          - gaps relative to reference are considered real
+        Cluster:  37
+        
+
+
+        augur align             --sequences results/split_sequences/37.fasta             --reference-sequence config/reference.gb             --output results/split_alignments/37.fasta             --nthreads 2             --remove-reference 2>&1 | tee logs/align_37.txt
+        
+[Tue Jun  2 16:48:51 2020]
+Finished job 36.
+42 of 62 steps (68%) done
+
+[Tue Jun  2 16:48:52 2020]
+Job 25: Collecting alignments
+
+
+        cat results/split_alignments/10.fasta results/split_alignments/34.fasta results/split_alignments/36.fasta results/split_alignments/12.fasta results/split_alignments/8.fasta results/split_alignments/16.fasta results/split_alignments/32.fasta results/split_alignments/30.fasta results/split_alignments/29.fasta results/split_alignments/14.fasta results/split_alignments/37.fasta results/split_alignments/13.fasta results/split_alignments/11.fasta results/split_alignments/35.fasta results/split_alignments/31.fasta results/split_alignments/15.fasta results/split_alignments/28.fasta results/split_alignments/17.fasta results/split_alignments/9.fasta results/split_alignments/33.fasta results/split_alignments/5.fasta results/split_alignments/26.fasta results/split_alignments/24.fasta results/split_alignments/19.fasta results/split_alignments/7.fasta results/split_alignments/20.fasta results/split_alignments/3.fasta results/split_alignments/1.fasta results/split_alignments/22.fasta results/split_alignments/6.fasta results/split_alignments/18.fasta results/split_alignments/25.fasta results/split_alignments/27.fasta results/split_alignments/4.fasta results/split_alignments/23.fasta results/split_alignments/0.fasta results/split_alignments/2.fasta results/split_alignments/21.fasta > results/aligned.fasta 2> logs/aggregate_alignments.txt
+        
+[Tue Jun  2 16:48:53 2020]
+Finished job 25.
+43 of 62 steps (69%) done
+
+[Tue Jun  2 16:48:53 2020]
+Job 22: Scanning aligned sequences results/aligned.fasta for problematic sequences
+
+
+        /usr/bin/python3.6 scripts/diagnostic.py             --alignment results/aligned.fasta             --metadata data/metadata.tsv             --reference config/reference.gb             --mask-from-beginning 100             --mask-from-end 50             --output-flagged results/flagged-sequences.tsv             --output-diagnostics results/sequence-diagnostics.tsv             --output-exclusion-list results/to-exclude.txt 2>&1 | tee logs/diagnostics.txt
+        
+[Tue Jun  2 16:48:58 2020]
+Finished job 22.
+44 of 62 steps (71%) done
+
+[Tue Jun  2 16:48:58 2020]
+Job 20: 
+        excluding sequences flagged in the diagnostic step in file results/to-exclude.txt
+        
+
+
+        augur filter             --sequences results/aligned.fasta             --metadata data/metadata.tsv             --exclude results/to-exclude.txt             --output results/aligned-filtered.fasta 2>&1 | tee logs/refiltered.txt
+        
+[Tue Jun  2 16:49:01 2020]
+Finished job 20.
+45 of 62 steps (73%) done
+
+[Tue Jun  2 16:49:01 2020]
+Job 19: 
+        Mask bases in alignment
+          - masking 100 from beginning
+          - masking 50 from end
+          - masking other sites: 13402 24389 24390
+        
+
+
+        /usr/bin/python3.6 scripts/mask-alignment.py             --alignment results/aligned-filtered.fasta             --mask-from-beginning 100             --mask-from-end 50             --mask-sites 13402 24389 24390             --mask-terminal-gaps             --output results/masked.fasta 2>&1 | tee logs/mask.txt
+        
+[Tue Jun  2 16:49:03 2020]
+Finished job 19.
+46 of 62 steps (74%) done
+
+[Tue Jun  2 16:49:03 2020]
+Job 18: 
+        Subsample all sequences into a global set for build 'global' with 10 per division year month
+        
+
+
+        augur filter             --sequences results/masked.fasta             --metadata data/metadata.tsv             --include config/include.txt                                                    --group-by division year month             --sequences-per-group 10             --output results/global/sample-global.fasta 2>&1 | tee 
+        
+[Tue Jun  2 16:49:07 2020]
+Finished job 18.
+47 of 62 steps (76%) done
+
+[Tue Jun  2 16:49:07 2020]
+Job 16: 
+        Combine and deduplicate FASTAs
+        
+
+
+        /usr/bin/python3.6 scripts/combine-and-dedup-fastas.py             --input results/global/sample-global.fasta             --output results/global/subsampled_alignment.fasta 2>&1 | tee logs/subsample_regions_global.txt
+        
+[Tue Jun  2 16:49:09 2020]
+Finished job 16.
+48 of 62 steps (77%) done
+
+[Tue Jun  2 16:49:09 2020]
+Job 15: Building tree
+
+
+        augur tree             --alignment results/global/subsampled_alignment.fasta             --output results/global/tree_raw.nwk             --nthreads 2 2>&1 | tee logs/tree_global.txt
+        
+[Tue Jun  2 16:49:21 2020]
+Finished job 15.
+49 of 62 steps (79%) done
+
+[Tue Jun  2 16:49:21 2020]
+Job 6: 
+        Refining tree
+          - estimate timetree
+          - use skyline coalescent timescale
+          - estimate marginal node dates
+        
+
+
+        augur refine             --tree results/global/tree_raw.nwk             --alignment results/global/subsampled_alignment.fasta             --metadata data/metadata.tsv             --output-tree results/global/tree.nwk             --output-node-data results/global/branch_lengths.json             --root Wuhan-Hu-1/2019 Wuhan/WH01/2019             --timetree             --clock-rate 0.0008             --clock-std-dev 0.0004             --coalescent skyline             --date-inference marginal             --divergence-unit mutations             --date-confidence             --no-covariance             --clock-filter-iqd 4 2>&1 | tee logs/refine_global.txt
+        
+[Tue Jun  2 16:57:02 2020]
+Finished job 6.
+50 of 62 steps (81%) done
+
+[Tue Jun  2 16:57:02 2020]
+Job 8: 
+        Reconstructing ancestral sequences and mutations
+          - inferring ambiguous mutations
+        
+
+
+        augur ancestral             --tree results/global/tree.nwk             --alignment results/global/subsampled_alignment.fasta             --output-node-data results/global/nt_muts.json             --inference joint             --infer-ambiguous 2>&1 | tee logs/ancestral_global.txt
+        
+
+[Tue Jun  2 16:57:02 2020]
+Job 3: Estimating censored KDE frequencies for tips
+
+
+        augur frequencies             --method kde             --metadata data/metadata.tsv             --tree results/global/tree.nwk             --min-date 2020.0             --pivot-interval 1             --narrow-bandwidth 0.05             --proportion-wide 0.0             --output results/global/tip-frequencies.json 2>&1 | tee logs/tip_frequencies_global.txt
+        
+[Tue Jun  2 16:57:06 2020]
+Finished job 3.
+51 of 62 steps (82%) done
+
+[Tue Jun  2 16:57:06 2020]
+Job 14: 
+        Inferring ancestral traits for ['region_exposure', 'country_exposure']
+          - increase uncertainty of reconstruction by 2.5 to partially account for sampling bias
+        
+
+
+        augur traits             --tree results/global/tree.nwk             --metadata data/metadata.tsv             --output results/global/traits.json             --columns region_exposure country_exposure             --confidence             --sampling-bias-correction 2.5 2>&1 | tee logs/traits_global.txt
+        
+[Tue Jun  2 16:57:29 2020]
+Finished job 14.
+52 of 62 steps (84%) done
+
+[Tue Jun  2 16:57:29 2020]
+Job 12: Adding internal clade labels
+
+
+        /usr/bin/python3.6 scripts/add_pangolin_lineages.py             --tree results/global/tree.nwk             --output results/global/pangolin.json
+        
+[Tue Jun  2 16:57:35 2020]
+Finished job 8.
+53 of 62 steps (85%) done
+
+[Tue Jun  2 16:57:35 2020]
+Job 9: Translating amino acid sequences
+
+
+        augur translate             --tree results/global/tree.nwk             --ancestral-sequences results/global/nt_muts.json             --reference-sequence config/reference.gb             --output-node-data results/global/aa_muts.json 2>&1 | tee logs/translate_global.txt
+        
+[Tue Jun  2 16:57:43 2020]
+Finished job 12.
+54 of 62 steps (87%) done
+[Tue Jun  2 16:57:48 2020]
+Finished job 9.
+55 of 62 steps (89%) done
+
+[Tue Jun  2 16:57:48 2020]
+Job 17: Adding internal clade labels
+
+
+        augur clades --tree results/global/tree.nwk             --mutations results/global/nt_muts.json results/global/aa_muts.json             --clades config/legacy_clades.tsv             --output-node-data results/global/temp_legacy_clades.json 2>&1 | tee logs/legacy_clades_global.txt
+        
+
+[Tue Jun  2 16:57:48 2020]
+Job 11: Adding internal clade labels
+
+
+        augur clades --tree results/global/tree.nwk             --mutations results/global/nt_muts.json results/global/aa_muts.json             --clades config/clades.tsv             --output-node-data results/global/clades.json 2>&1 | tee logs/clades_global.txt
+        
+[Tue Jun  2 16:57:51 2020]
+Finished job 11.
+56 of 62 steps (90%) done
+[Tue Jun  2 16:57:51 2020]
+Finished job 17.
+57 of 62 steps (92%) done
+
+[Tue Jun  2 16:57:51 2020]
+rule rename_legacy_clades:
+    input: results/global/temp_legacy_clades.json
+    output: results/global/legacy_clades.json
+    jobid: 10
+    wildcards: build_name=global
+
+[Tue Jun  2 16:57:53 2020]
+Finished job 10.
+58 of 62 steps (94%) done
+
+[Tue Jun  2 16:57:53 2020]
+Job 4: Exporting data files for for auspice
+
+
+        augur export v2             --tree results/global/tree.nwk             --metadata data/metadata.tsv             --node-data results/global/branch_lengths.json results/global/nt_muts.json results/global/aa_muts.json results/global/legacy_clades.json results/global/clades.json results/global/pangolin.json results/global/recency.json results/global/traits.json             --auspice-config config/auspice_config.json             --colors results/global/colors.tsv             --lat-longs config/lat_longs.tsv             --title 'Genomic epidemiology of novel coronavirus - Global subsampling'             --description config/description.md             --output results/global/ncov_with_accessions.json 2>&1 | tee logs/export_global.txt
+        
+[Tue Jun  2 16:57:57 2020]
+Finished job 4.
+59 of 62 steps (95%) done
+
+[Tue Jun  2 16:57:57 2020]
+Job 2: Adjusting main auspice JSON to take into account travel history
+
+
+        /usr/bin/python3.6 ./scripts/modify-tree-according-to-exposure.py             --input results/global/ncov_with_accessions.json             --colors results/global/colors.tsv             --lat-longs config/lat_longs.tsv             --sampling country             --exposure country_exposure             --output results/global/ncov_with_accessions_and_travel_branches.json 2>&1 | tee logs/incorporate_travel_history_global.txt
+        
+[Tue Jun  2 16:57:57 2020]
+Finished job 2.
+60 of 62 steps (97%) done
+
+[Tue Jun  2 16:57:58 2020]
+Job 1: Remove extraneous colorings for main build and move frequencies
+
+
+        /usr/bin/python3.6 scripts/fix-colorings.py             --input results/global/ncov_with_accessions_and_travel_branches.json             --output auspice/ncov_global.json 2>&1 | tee logs/fix_colorings_global.txt &&
+        cp results/global/tip-frequencies.json auspice/ncov_global_tip-frequencies.json
+        
+[Tue Jun  2 16:57:58 2020]
+Finished job 1.
+61 of 62 steps (98%) done
+
+[Tue Jun  2 16:57:58 2020]
+localrule all:
+    input: auspice/ncov_global.json, auspice/ncov_global_tip-frequencies.json
+    jobid: 0
+
+[Tue Jun  2 16:57:58 2020]
+Finished job 0.
+62 of 62 steps (100%) done
+Complete log: /nextstrain/build/.snakemake/log/2020-06-02T164444.651500.snakemake.log
